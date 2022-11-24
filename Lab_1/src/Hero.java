@@ -1,6 +1,6 @@
 public class Hero {
 
-    MoveStrategy moveStrategy;
+    MoveStrategy moveStrategy = new WalkMoveStrategy();
 
     public void move() {
         moveStrategy.move();
