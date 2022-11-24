@@ -35,27 +35,23 @@ public class Main {
     static int readSize () {
         try
         {
-        File f = new File("size.txt");
-        if (!f.canRead()) throw new FileAccessException();
+            File f = new File("size.txt");
+            if (!f.canRead()) throw new FileAccessException();
 
-        BufferedReader br = new BufferedReader(new FileReader(f));
+            try(BufferedReader br = new BufferedReader(new FileReader(f))) {
 
-            String s;
-            if((s=br.readLine())!=null)
-            {
-                try
-                {
-                    int c = Integer.parseInt(s);
+                String s;
+                if ((s = br.readLine()) != null) {
+                    try {
+                        int c = Integer.parseInt(s);
 
-                    if (c > 1000000) throw new LargeValueException();
-                    return c;// throw new DataException();
-                }
-                catch (NumberFormatException | LargeValueException ex)
-                {
-                    System.out.println(ex.getMessage());
+                        if (c > 1000000) throw new LargeValueException();
+                        return c;
+                    } catch (NumberFormatException | LargeValueException ex) {
+                        System.out.println(ex.getMessage());
+                    }
                 }
             }
-            br.close();
         }
         catch(FileAccessException | IOException ex){
             System.out.println(ex.getMessage());
