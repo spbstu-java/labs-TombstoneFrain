@@ -1,5 +1,4 @@
 import java.util.*;
-import java.util.function.Function;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
@@ -8,22 +7,22 @@ public class Main {
     {
         List<String> strList1 = Arrays.asList("void","int","float","double","decimal");
         List<String> strList2 = Arrays.asList("void","int","float","double","bool");
-        List<Integer> intList = new ArrayList<>();
+        Queue<Integer> intList = new LinkedList<>();
         List<Integer> intList1 = Arrays.asList(2, 1, 4, 7, 10, 3, 4, 7);
-        List<Integer> intList2 = Arrays.asList(9, 1, 1, 7, 13, 3, 15, 7);
+        Set<Integer> intList2 = Set.of(9, 1, 5, 11, 13, 3, 15, 7);
 
-        System.out.println("Task 1: MidValue = " + MidValue(intList1));
-        System.out.println("Task 2: NewStrings = " + EditString(strList1));
-        System.out.println("Task 3: SqrUniqueValue = " + ReturnSqr(intList1));
-        System.out.println("Task 4: StringStartedByChar = " + ReturnString(strList1, 'd'));
-        System.out.println("Task 5: LastString = " + ReturnLast(strList1));
-        System.out.println("Task 5: EmptyList = " + ReturnLast(intList));
-        System.out.println("Task 6: SumEvenNumbers = " + SumEven(intList1));
-        System.out.println("Task 6: NaNEvenNumbers = " + SumEven(intList2));
-        System.out.println("Task 7: ConvertListToMap = " + ConvertToMap(strList2));
+        System.out.println("Task 1: MidValue = " + midValue(intList1));
+        System.out.println("Task 2: NewStrings = " + editString(strList1));
+        System.out.println("Task 3: SqrUniqueValue = " + returnSqr(intList1));
+        System.out.println("Task 4: StringStartedByChar = " + returnString(strList1, 'd'));
+        System.out.println("Task 5: LastString = " + returnLast(strList1));
+        System.out.println("Task 5: EmptyList = " + returnLast(intList));
+        System.out.println("Task 6: SumEvenNumbers = " + sumEven(intList1));
+        System.out.println("Task 6: NaNEvenNumbers = " + sumEven(intList2));
+        System.out.println("Task 7: ConvertListToMap = " + convertToMap(strList2));
     }
 
-    public static double MidValue(List<Integer> intList)
+    public static double midValue(Collection<Integer> intList)
     {
         return intList.stream()
                 .flatMapToInt(IntStream::of)
@@ -31,14 +30,14 @@ public class Main {
                 .getAsDouble();
     }
 
-    public static List<String> EditString(List<String> strList)
+    public static List<String> editString(Collection<String> strList)
     {
         return strList.stream()
                 .map(n -> "_new_"+n.toUpperCase())
                 .collect(Collectors.toList());
     }
 
-    public static List<Integer> ReturnSqr(List<Integer> intList)
+    public static List<Integer> returnSqr(Collection<Integer> intList)
     {
         return intList.stream()
                 .filter(n -> intList.stream().filter(x -> x == n).count() < 2)
@@ -46,7 +45,7 @@ public class Main {
                 .collect(Collectors.toList());
     }
 
-    public static List<String> ReturnString(List<String> strList, char ch)
+    public static List<String> returnString(Collection<String> strList, char ch)
     {
         return strList.stream()
                 .filter(n -> n.charAt(0) == ch)
@@ -54,7 +53,7 @@ public class Main {
                 .collect(Collectors.toList());
     }
 
-    public static <T> T ReturnLast(List<T> list)
+    public static <T> T returnLast(Collection<T> list)
     {
         try {
             return list.stream().reduce((first, second) -> second).orElseThrow();
@@ -65,7 +64,7 @@ public class Main {
         }
     }
 
-    public static int SumEven(List<Integer> intList)
+    public static int sumEven(Collection<Integer> intList)
     {
         return intList.stream()
                 .flatMapToInt(IntStream::of)
@@ -73,7 +72,7 @@ public class Main {
                 .sum();
     }
 
-    public static Map<Character, String> ConvertToMap(List<String> strList)
+    public static Map<Character, String> convertToMap(Collection<String> strList)
     {
         return strList.stream()
                 .collect(Collectors.toMap(
